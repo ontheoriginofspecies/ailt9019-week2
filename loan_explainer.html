@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="Vgpzi1lhmiFK3Ba4kKwO7l">
+<head data-page-node-id="NsCMJyHiiFtpCHuz3bPPAp">
+<meta charset="UTF-8" data-page-node-id="bhx7SEia4YjeudC6946PtR">
+<title>Loan Term Explainer · AILT9019 Week 2 Prototype</title>
+<style>
+  body {
+    font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    max-width: 720px;
+    margin: 40px auto;
+    padding: 0 20px;
+    background: #fafafa;
+    color: #222;
+  }
+  h1 { font-size: 24px; }
+  .subtitle { color: #666; margin-top: -10px; font-size: 14px; }
+  .box {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    margin: 20px 0;
+  }
+  input {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  button {
+    padding: 10px 16px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  button:hover { background: #1d4ed8; }
+  .result { margin-top: 16px; padding: 12px; background: #f1f5f9; border-radius: 4px; }
+  .term-name { font-weight: bold; color: #1e40af; font-size: 18px; }
+  .example { color: #666; font-style: italic; font-size: 14px; margin-top: 8px; }
+  .needs { color: #b45309; font-size: 14px; margin-top: 4px; }
+  .error { color: #b91c1c; }
+  footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    color: #888;
+    font-size: 12px;
+  }
+</style>
+</head>
+<body data-page-node-id="BuCk1LCEYyMbkpReipuo0y">
+  <h1 data-page-node-id="lrMfPY6cnnBBmi5KMsdlyT">📚 Loan Term Explainer</h1>
+  <p class="subtitle" data-page-node-id="GqumB3cqTVayihuxeml9NZ">
+    Week 2 tiny prototype · Idea #1: 解释一个贷款术语<br data-page-node-id="nweRNX2iShKmfsXxNBQdIY">
+    Does <strong data-page-node-id="GB4V954ZmROlsnBTNaDjRp">not</strong>: 不给个人建议 / 不推荐贷款机构 / 不替你决定
+  </p>
+
+  <div class="box" data-page-node-id="zsLvct8a4JgoGCEnVBNE1m">
+    <label for="query" data-page-node-id="6o7RGKqutE4so2qFGjjDdQ"><strong data-page-node-id="2nxJ78YBEt3alh8GUfEi6O">输入一个术语：</strong></label>
+    <input id="query" type="text" placeholder="比如 grace period 或 deferment" autofocus data-page-node-id="TaQKDG5mbAAjAcg4d7PTE5">
+    <button onclick="search()" data-page-node-id="ueaJAMbUxYgOBz5UFeqHGV">Explain</button>
+    <button onclick="listAll()" data-page-node-id="J7gi6J1HhCzcY5F4IHBhI5">List all</button>
+    <div id="result" class="result" style="display:none;" data-page-node-id="bHBngsvhtRfoxeH7gzHxeG"></div>
+  </div>
+
+<script>
+const terms = [
+  {term:"subsidized loan", short:"政府贴息的贷款：在校期间 + 6 个月宽限期内利息由政府支付，你只还本金。", example:"美国 Direct Subsidized Loan 在读期间不计利息。", needs:"Need-based（看家庭经济状况）。"},
+  {term:"unsubsidized loan", short:"不贴息的贷款：从借出当天就开始计息，利息会加到本金里（capitalize）。", example:"美国 Direct Unsubsidized Loan 入学第一天就开始计息。", needs:"Not need-based——大多数人都能申请。"},
+  {term:"principal", short:"本金：你借的原始金额，不算利息。", example:"借 10,000 美元，principal 就是 10,000。", needs:""},
+  {term:"interest", short:"利息：借钱的价格，按未还本金按年/按月计算。", example:"年利率 5% 的 1 万贷款，第一年约 500 美元利息。", needs:""},
+  {term:"capitalization", short:"利息资本化：未付利息加回本金，下次计息按更大的本金算。", example:"1 万本金 + 1000 未付利息 → 下次计息按 11,000。", needs:""},
+  {term:"grace period", short:"宽限期：毕业后一段时间内不用还款，subsidized 贷款这段时间不计利息。", example:"美国联邦贷款毕业后 6 个月是 grace period。", needs:""},
+  {term:"deferment", short:"延期还款：符合条件（如在校、军役）时可暂停还款；subsidized 贷款期间不计利息。", example:"回学校读研可申请 in-school deferment。", needs:""},
+  {term:"forbearance", short:"暂缓还款：经济困难时可申请，期间**所有贷款**都继续计息。", example:"失业期间可申请 forbearance，但利息一直滚。", needs:""},
+  {term:"origination fee", short:"放款手续费：贷款发放时一次性扣除，通常 1% 左右。", example:"1 万贷款扣 1.06% origination fee，实际到账 9894。", needs:""},
+  {term:"disbursement", short:"放款：学校收到贷款资金（一般直接付给学校抵学费，多退少补）。", example:"秋季 disbursement 通常 9 月到账。", needs:""},
+  {term:"default", short:"违约：通常连续 270 天不还款后，贷款进入 default，信用记录严重受损。", example:"进入 default 后工资可能被扣、政府福利受影响。", needs:""},
+  {term:"loan servicer", short:"贷款服务机构：你还款的对象，由教育部或贷款方指定，不一定是最初借给你钱的银行。", example:"美国贷款常见 servicer: Nelnet, FedLoan Servicing, MOHELA。", needs:""},
+  {term:"repayment plan", short:"还款计划：决定每月还多少、还多久。Standard / Graduated / Income-Driven 都是常见类型。", example:"Income-Driven Repayment (IDR) 按收入比例还款。", needs:""},
+  {term:"consolidation", short:"贷款合并：把多笔贷款合并成一笔，每月只还一次，利率是加权平均。", example:"5 笔 federal loan 合并后利率约等于之前加权平均。", needs:""}
+];
+
+function render(t) {
+  const r = document.getElementById("result");
+  let html = `<div class="term-name">${t.term.toUpperCase()}</div>`;
+  html += `<div>${t.short}</div>`;
+  if (t.example) html += `<div class="example">例：${t.example}</div>`;
+  if (t.needs)  html += `<div class="needs">限制：${t.needs}</div>`;
+  r.innerHTML = html;
+  r.style.display = "block";
+}
+
+function findTerm(q) {
+  q = q.trim().toLowerCase();
+  // exact
+  for (const t of terms) if (t.term === q) return t;
+  // substring
+  for (const t of terms) if (q.includes(t.term) || t.term.includes(q)) return t;
+  return null;
+}
+
+function search() {
+  const q = document.getElementById("query").value;
+  const r = document.getElementById("result");
+  const t = findTerm(q);
+  if (t) { render(t); }
+  else {
+    r.innerHTML = `<span class="error">没找到 "${q}"。试试 list all 看有哪些术语。</span>`;
+    r.style.display = "block";
+  }
+}
+
+function listAll() {
+  const r = document.getElementById("result");
+  r.innerHTML = "<strong>可查的术语：</strong><br>" + terms.map(t => "· " + t.term).join("<br>");
+  r.style.display = "block";
+}
+
+document.getElementById("query").addEventListener("keydown", e => {
+  if (e.key === "Enter") search();
+});
+</script>
+
+<footer data-page-node-id="a8UOyWByYEcSUGKTqXZlRc">
+  数据来源：US Federal Student Aid 公开术语（studentaid.gov, public domain）+ 通用贷款术语整理。<br data-page-node-id="8Tsg5rzMKGjRVmqAPXAzVA">
+  Does NOT give personal advice, recommend lenders, or decide whether to borrow. · AILT9019 Week 2 prototype.
+</footer>
+</body>
+</html>

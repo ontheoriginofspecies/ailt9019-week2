@@ -1,0 +1,95 @@
+{
+  "_about": {
+    "name": "loan-terms-faq",
+    "purpose": "Tiny public-domain glossary for student loan terminology",
+    "source": "Compiled from US Federal Student Aid glossary (studentaid.gov, public domain) and common student loan terms",
+    "license": "Public domain (US Government work) + original paraphrasing",
+    "size_target": "10-15 terms is enough for a prototype"
+  },
+  "terms": [
+    {
+      "term": "subsidized loan",
+      "short": "政府贴息的贷款：在校期间 + 6 个月宽限期内利息由政府支付，你只还本金。",
+      "example": "美国 Direct Subsidized Loan 在读期间不计利息。",
+      "needs": "Need-based（看家庭经济状况）。"
+    },
+    {
+      "term": "unsubsidized loan",
+      "short": "不贴息的贷款：从借出当天就开始计息，利息会加到本金里（capitalize）。",
+      "example": "美国 Direct Unsubsidized Loan 入学第一天就开始计息。",
+      "needs": "Not need-based——大多数人都能申请。"
+    },
+    {
+      "term": "principal",
+      "short": "本金：你借的原始金额，不算利息。",
+      "example": "借 10,000 美元，principal 就是 10,000。",
+      "needs": ""
+    },
+    {
+      "term": "interest",
+      "short": "利息：借钱的价格，按未还本金按年/按月计算。",
+      "example": "年利率 5% 的 1 万贷款，第一年约 500 美元利息。",
+      "needs": ""
+    },
+    {
+      "term": "capitalization",
+      "short": "利息资本化：未付利息加回本金，下次计息按更大的本金算。",
+      "example": "1 万本金 + 1000 未付利息 → 下次计息按 11,000。",
+      "needs": ""
+    },
+    {
+      "term": "grace period",
+      "short": "宽限期：毕业后一段时间内不用还款，subsidized 贷款这段时间不计利息。",
+      "example": "美国联邦贷款毕业后 6 个月是 grace period。",
+      "needs": ""
+    },
+    {
+      "term": "deferment",
+      "short": "延期还款：符合条件（如在校、军役）时可暂停还款；subsidized 贷款期间不计利息。",
+      "example": "回学校读研可申请 in-school deferment。",
+      "needs": ""
+    },
+    {
+      "term": "forbearance",
+      "short": "暂缓还款：经济困难时可申请，期间**所有贷款**都继续计息。",
+      "example": "失业期间可申请 forbearance，但利息一直滚。",
+      "needs": ""
+    },
+    {
+      "term": "origination fee",
+      "short": "放款手续费：贷款发放时一次性扣除，通常 1% 左右。",
+      "example": "1 万贷款扣 1.06% origination fee，实际到账 9894。",
+      "needs": ""
+    },
+    {
+      "term": "disbursement",
+      "short": "放款：学校收到贷款资金（一般直接付给学校抵学费，多退少补）。",
+      "example": "秋季 disbursement 通常 9 月到账。",
+      "needs": ""
+    },
+    {
+      "term": "default",
+      "short": "违约：通常连续 270 天不还款后，贷款进入 default，信用记录严重受损。",
+      "example": "进入 default 后工资可能被扣、政府福利受影响。",
+      "needs": ""
+    },
+    {
+      "term": "loan servicer",
+      "short": "贷款服务机构：你还款的对象，由教育部或贷款方指定，不一定是最初借给你钱的银行。",
+      "example": "美国贷款常见 servicer: Nelnet, FedLoan Servicing, MOHELA。",
+      "needs": ""
+    },
+    {
+      "term": "repayment plan",
+      "short": "还款计划：决定每月还多少、还多久。Standard / Graduated / Income-Driven 都是常见类型。",
+      "example": "Income-Driven Repayment (IDR) 按收入比例还款。",
+      "needs": ""
+    },
+    {
+      "term": "consolidation",
+      "short": "贷款合并：把多笔贷款合并成一笔，每月只还一次，利率是加权平均。",
+      "example": "5 笔 federal loan 合并后利率约等于之前加权平均。",
+      "needs": ""
+    }
+  ]
+}
